@@ -79,13 +79,13 @@ const config = {
             pollInterval: 60000
         },
         paths: {
-            base: process.env.WEB_BASE_PATH || "",
             relative: false
         },
         alias: {
             $components: 'src/components',
             $i18n: 'i18n',
         },
+        // ========== ЭТО НОВАЯ СТРОЧКА, КОТОРАЯ ИГНОРИРУЕТ ОШИБКУ ==========
         prerender: {
             handleHttpError: 'ignore'
         }

@@ -1,0 +1,12 @@
+{
+  "youtube": [
+    "cookie=; b= "
+  ],
+  "instagram": [
+    "mid=; ig_did=; csrftoken=; ds_user_id=; sessionid= "
+  ],
+  "instagram_bearer": [
+    "token= ",
+    "token=IGT:2: "
+  ]
+}

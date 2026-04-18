@@ -40,6 +40,7 @@ it also includes documentation in the [docs tree](/docs/):
 - [how to protect a cobalt instance](/docs/protect-an-instance.md)
 - [cobalt api instance environment variables](/docs/api-env-variables.md)
 - [cobalt api documentation](/docs/api.md)
+- [render self-hosting advanced guide (ru)](/docs/render-selfhost-advanced-ru.md)
 
 ### ethics
 cobalt is a tool that makes downloading public content easier. it takes **zero liability**.

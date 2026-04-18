@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: cobalt-api
+    runtime: node
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm --filter @imput/cobalt-api start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: API_URL
+        sync: false
+      - key: COOKIE_PATH
+        value: /etc/secrets/cookies.json
+      - key: YOUTUBE_SESSION_SERVER
+        sync: false
+      - key: YOUTUBE_SESSION_INNERTUBE_CLIENT
+        value: WEB_EMBEDDED
+      - key: HTTP_PROXY
+        sync: false
+      - key: HTTPS_PROXY
+        sync: false
+      - key: NO_PROXY
+        value: localhost,127.0.0.1
+
+  - type: static
+    name: cobalt-web
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @imput/cobalt-web build
+    staticPublishPath: web/build
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: WEB_DEFAULT_API
+        sync: false
+      - key: WEB_BASE_PATH
+        value: ""

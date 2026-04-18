@@ -35,14 +35,45 @@ const updateSession = (newSession) => {
     session = newSession;
 }
 
-const loadSession = async () => {
-    const sessionServerUrl = new URL(env.ytSessionServer);
-    sessionServerUrl.pathname = "/get_pot";
+const tryLoadSessionFrom = async (url, method) => {
+    const response = await fetch(url, { method, dispatcher: defaultAgent });
+    if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`.trim());
+    }
 
-    const newSession = await fetch(
-        sessionServerUrl,
-        { method: 'POST', dispatcher: defaultAgent }
-    ).then(a => a.json());
+    const payload = await response.text();
+    return JSON.parse(payload);
+}
+
+const loadSession = async () => {
+    const configuredUrl = new URL(env.ytSessionServer);
+    const endpoints = [
+        new URL(configuredUrl),
+        new URL("/get_pot", configuredUrl),
+        new URL("/token", configuredUrl)
+    ]
+    .filter((url, i, arr) => arr.findIndex(u => u.href === url.href) === i);
+
+    let newSession;
+    let lastError;
+
+    for (const endpoint of endpoints) {
+        for (const method of ["POST", "GET"]) {
+            try {
+                newSession = await tryLoadSessionFrom(endpoint, method);
+                break;
+            } catch (e) {
+                lastError = e;
+            }
+        }
+        if (newSession) {
+            break;
+        }
+    }
+
+    if (!newSession) {
+        throw lastError ?? new Error("failed to fetch youtube session");
+    }
 
     validateSession(newSession);
 
