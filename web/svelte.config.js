@@ -8,8 +8,6 @@ import { sveltePreprocess } from "svelte-preprocess";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-    // Consult https://kit.svelte.dev/docs/integrations#preprocessors
-    // for more information about preprocessors
     extensions: [".svelte", ".md"],
     preprocess: [
         {
@@ -19,7 +17,6 @@ const config = {
                     /<div id="svelte-announcer" [\s\S]*?<\/div>/,
                     '{null}'
                 );
-
                 return { code }
             }
         },
@@ -40,8 +37,6 @@ const config = {
     ],
     kit: {
         adapter: adapter({
-            // default options are shown. On some platforms
-            // these options are set automatically — see below
             pages: 'build',
             assets: 'build',
             fallback: '404.html',
@@ -53,38 +48,27 @@ const config = {
             directives: {
                 "connect-src": ["*"],
                 "default-src": ["none"],
-
                 "font-src": ["self"],
                 "style-src": ["self", "unsafe-inline"],
                 "img-src": ["*", "data:"],
                 "manifest-src": ["self"],
                 "worker-src": ["self"],
-
                 "object-src": ["none"],
                 "frame-src": [
                     "self",
                     "challenges.cloudflare.com"
                 ],
-
                 "script-src": [
                     "self",
                     "wasm-unsafe-eval",
                     "challenges.cloudflare.com",
-
-                    // eslint-disable-next-line no-undef
                     process.env.WEB_PLAUSIBLE_HOST ? process.env.WEB_PLAUSIBLE_HOST : "",
-
-                    // hash of the theme preloader in app.html
                     "sha256-g67gIjM3G8yMbjbxyc3QUoVsKhdxgcQzCmSKXiZZo6s=",
                 ],
-
                 "script-src-attr": [
                     "unsafe-hashes",
-                    // hash of inline img event call
-                    // see: https://github.com/sveltejs/svelte/issues/14014
                     "sha256-7dQwUgLau1NFCCGjfn9FsYptB6ZtWxJin6VohGIu20I="
                 ],
-
                 "frame-ancestors": ["none"]
             }
         },
@@ -95,11 +79,15 @@ const config = {
             pollInterval: 60000
         },
         paths: {
+            base: process.env.WEB_BASE_PATH || "",
             relative: false
         },
         alias: {
             $components: 'src/components',
             $i18n: 'i18n',
+        },
+        prerender: {
+            handleHttpError: 'ignore'
         }
     }
 };

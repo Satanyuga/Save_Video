@@ -7,8 +7,8 @@
 </script>
 
 <svelte:head>
-    <title>{$t("general.cobalt")}</title>
-    <meta property="og:title" content={$t("general.cobalt")} />
+    <title>Save YouTube</title>
+    <meta property="og:title" content="Save YouTube" />
 </svelte:head>
 
 <div id="cobalt-save-container" class="center-column-container">
@@ -21,10 +21,7 @@
         <Meowbalt emotion="smile" />
         <Omnibox />
     </main>
-    <div id="terms-note">
-        {$t("save.terms.note.agreement")}
-        <a href="/about/terms">{$t("save.terms.note.link")}</a>
-    </div>
+    <!-- Весь блок #terms-note удалён -->
 </div>
 
 <style>
@@ -43,23 +40,9 @@
         gap: 15px;
     }
 
-    #terms-note {
-        bottom: 0;
-        color: var(--gray);
-        font-size: 12px;
-        text-align: center;
-        padding-bottom: 6px;
-        font-weight: 500;
-    }
-
     @media screen and (max-width: 535px) {
         #cobalt-save-container {
             padding-top: calc(var(--padding) / 2);
-        }
-
-        #terms-note {
-            font-size: 11px;
-            padding-bottom: 0;
         }
     }
 </style>

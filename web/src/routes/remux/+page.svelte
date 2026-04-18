@@ -29,11 +29,8 @@
 </script>
 
 <svelte:head>
-    <title>{$t("tabs.remux")} ~ {$t("general.cobalt")}</title>
-    <meta
-        property="og:title"
-        content="{$t('tabs.remux')} ~ {$t('general.cobalt')}"
-    />
+    <title>Remux - Save YouTube</title>
+    <meta property="og:title" content="Remux - Save YouTube" />
 </svelte:head>
 
 <DropReceiver bind:files bind:draggedOver onDrop={remux} id="remux-container">

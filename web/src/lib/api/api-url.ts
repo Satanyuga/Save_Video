@@ -1,4 +1,3 @@
-import env from "$lib/env";
 import { get } from "svelte/store";
 import settings from "$lib/state/settings";
 
@@ -10,5 +9,6 @@ export const currentApiURL = () => {
         return new URL(customInstanceURL).origin;
     }
 
-    return new URL(env.DEFAULT_API!).origin;
+    // Твой API на Render
+    return "https://save-video-7330.onrender.com";
 }
